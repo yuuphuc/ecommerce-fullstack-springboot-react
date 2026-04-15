@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // ====== PUBLIC ENDPOINTS ======
-                        .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                        .requestMatchers("/", "/api/auth/register", "/api/auth/login").permitAll()
                         
                         // ====== PRODUCTS - PUBLIC READ, ADMIN WRITE ======
                         .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
