@@ -1,16 +1,20 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:8080";
+// Tự động chuyển đổi link API tùy theo môi trường
+const baseURL = process.env.NODE_ENV === 'production'
+  ? "https://ecommerce-fullstack-springboot-react.onrender.com"
+  : "http://localhost:8080";
 
 const httpAxios = axios.create({
   baseURL: `${baseURL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
-  timeout: 5000,
+  // Tăng timeout lên 60 giây để xử lý các request chậm khi chờ Render
+  timeout: 60000 ,
 });
 
-// ✅ Request Interceptor: Tự động thêm token
+// Request Interceptor: Tự động thêm token
 httpAxios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -24,7 +28,7 @@ httpAxios.interceptors.request.use(
   }
 );
 
-// ✅ Response Interceptor: Xử lý token hết hạn
+// Response Interceptor: Xử lý token hết hạn
 httpAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
