@@ -9,8 +9,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(@NonNull CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedOrigins(
+                        "http://localhost:3000", // Để code dưới máy local
+                        "https://ecommerce-fullstack-springboot-react-k5o7.vercel.app" //để LINK VERCEL THẬT CỦA BẠN
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Cho phép tất cả các phương thức HTTP
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization") // Quan trọng: cho phép frontend đọc header Authorization
                 .allowCredentials(true);
